@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tweet Post</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 500px; margin: auto; }
+        #tweetBox { width: 100%; height: 50px; font-size: 16px; padding: 5px; }
+        #charCount { font-size: 14px; color: lightgray; font-weight: normal; }
+        .negative { color: red !important; font-weight: bold; }
+        .tweet-container { margin-top: 20px; border: 1px solid black; padding: 10px; }
+        .tweet { border-bottom: 1px solid black; padding: 10px; font-size: 16px; }
+        .username { font-weight: bold; }
+        button { margin-top: 10px; font-size: 16px; padding: 5px 10px; }
+        button:disabled { color: lightgray; }
+    </style>
+</head>
+<body>
+    <h3>Write a tweet</h3>
+    <textarea id="tweetBox"></textarea>
+    <div><span id="charCount">30</span> characters remaining</div>
+    <button id="postTweet" disabled>Post Tweet</button>
+    <div class="tweet-container"></div>
+    
+    <script>
+        const maxChars = 30;
+        const username = "Nicole";
+        let postCount = 0;
+
+        function getPostLabel(count) {
+            const suffixes = ["th", "st", "nd", "rd"];
+            const relevantSuffix = (count % 100 >= 11 && count % 100 <= 13) ? "th" 
+                                  : suffixes[(count % 10)] || "th";
+            return `${count}${relevantSuffix} post`;
+        }
+
+        function updateCharCount() {
+            let charsLeft = maxChars - $("#tweetBox").val().length;
+            $("#charCount").text(charsLeft);
+            $("#charCount").toggleClass("negative", charsLeft < 0);
+            $("#postTweet").prop("disabled", charsLeft < 0 || !$("#tweetBox").val().trim());
+        }
+
+        $("#tweetBox").on("input", updateCharCount);
+
+        $("#tweetBox").on("keypress", function(event) {
+            if (event.which === 13) {
+                event.preventDefault();
+                let charsLeft = maxChars - $(this).val().length;
+                if (charsLeft >= 0 && $(this).val().trim()) { 
+                    $("#postTweet").click();
+                }
+            }
+        });
+
+        $("#postTweet").click(function() {
+            let tweetText = $("#tweetBox").val().trim();
+            if (tweetText) {
+                postCount++;  // Increment the post count
+                let postLabel = getPostLabel(postCount); // Generate the label dynamically
+                
+                $(".tweet-container").prepend(`<div class='tweet'><span class='username'>${username}</span>: ${postLabel}</div>`);
+                
+                $("#tweetBox").val("").focus();
+                $("#charCount").text(maxChars).removeClass("negative");
+                $("#postTweet").prop("disabled", true);
+            }
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+

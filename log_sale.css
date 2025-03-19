@@ -1,0 +1,72 @@
+/* Reset & base styling */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #f8f9fa;
+    font-family: sans-serif;
+  }
+  
+  /* TRASH: wide, with a light gray background, labeled 'trash' */
+  .trash-area {
+    width: 60%; /* about as wide as a row */
+    background-color: #ccc;
+    border: 2px solid #333;
+    border-radius: 4px;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  /* ROWS: each sale-record is a flex row (thanks to .row from Bootstrap).
+     We'll handle the hover highlight + move cursor. */
+  .sale-record {
+    background-color: #fff;
+    border-radius: 4px;
+    margin-bottom: 6px;
+    padding: 8px 0;
+  }
+  
+  /* On hover: background turns light yellow, cursor -> move */
+  .sale-record:hover {
+    background-color: #fff3cd; /* light yellow */
+    cursor: move !important;        /* ensures the move cursor on hover */
+  }
+  
+  /* The delete button: gold with black text. */
+  .delete-btn {
+    background-color: #ffc107;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-weight: bold;
+    color: #000;
+  }
+  
+  .delete-btn:hover {
+    background-color: #e0a800;
+    color: #fff;
+  }
+  
+  /* OVERRIDES to ensure jQuery UI autocomplete isn't hidden behind bootstrap elements */
+  .ui-autocomplete {
+    position: absolute;
+    background-color: #fff !important;
+    border: 1px solid #ccc !important;
+    max-height: 200px;
+    overflow-y: auto; /* allow scroll if many items */
+    z-index: 2000;    /* ensure it's above other elements */
+  }
+  
+  .ui-menu-item:hover {
+    background-color: #eee;   /* highlight item on hover */
+    cursor: pointer;
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+
+  
